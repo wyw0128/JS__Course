@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* NOTE: It will include paddings and borders into the width or the height that we specify for an element. */
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(242, 243, 159);
+  /* NOTE: font-family and font-size is inherited. */
+  font-family: Arial;
+  font-size: 20px;
+  padding: 50px;
+}
+
+h1 {
+  font-size: 35px;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* . is for class */
+.first {
+  color: red;
+}
+
+p {
+  margin-bottom: 20px;
+}
+/* # is for id */
+#your-name {
+  background-color: rgb(207, 179, 18);
+  /* NOTE: border is a shorthand property that allows us to set multiple values, and it is not inherited. */
+  border: 5px solid #444;
+  width: 400px;
+  padding: 25px;
+  margin-top: 30px;
+}
+
+input,
+button {
+  padding: 10px;
+  font-size: 16px;
+  /* background-color: thistle; */
+}
+
+a {
+  background-color: yellowgreen;
+}
+
+/* NOTE: We can selector child element */
+
+#couse-image {
+  width: 300px;
+}
+
+#your-name h2 {
+  color: olivedrab;
+}

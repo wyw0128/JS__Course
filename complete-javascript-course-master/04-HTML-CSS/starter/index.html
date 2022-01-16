@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body></body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- NOTE: The rel stands for "relationship", and is probably one of the key features of the <link> element — the value denotes how the item being linked to is related to the containing document. -->
+    <!-- NOTE: For CSS file, the rel='stylesheet', for favicon, the rel='icon'. -->
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <title>Learning HTML & CSS</title>
+  </head>
+  <body>
+    <!-- NOTE: This <h1>, <p>, <h2> are all child elements from <body> element. -->
+
+    <h1>JavaScript is fun, but so is HTML & CSS!</h1>
+    <p class="first">
+      You can learn JavaScript without HTML and CSS, but for DOM manipulation
+      it's useful to have some basic ideas of HTML & CSS.
+
+      <!-- NOTE: <a>(anchor) element is called the inline element because the link is added behind the previous message. It flows inline with the rest of the text.-->
+
+      You can learn more about it
+      <a
+        href="https://www.udemy.com/course/the-complete-javascript-course/learn/lecture/22648389#overview"
+        >Jonas on Udemy</a
+      >.
+    </p>
+
+    <!-- NOTE: <h2> element is called block element, because the heading is not in line with the text of the previous element. It created a new line which contains the content of the text.-->
+
+    <h2>Another heading</h2>
+    <p class="second">Just another paragraph</p>
+
+    <!-- NOTE: <img> element does not have a closing tag, so we can close the tag by adding '/' at the end of the element(but it is not mandatory)-->
+    <img
+      id="couse-image"
+      src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+    />
+
+    <!-- NOTE: In CSS, the convention to write more than one word of string is '-', in JavaScript, we use camelCase.-->
+
+    <!-- NOTE: <div> element is just a generic box that has no meaning, so that's not a good idea for SEO, so it's better to use appropriate element according to the content that's in it. It is semantic in HTML. -->
+
+    <form id="your-name">
+      <h2>Your name here</h2>
+      <p class="first">Please fill in this form :)</p>
+
+      <input type="text" placeholder="Your name" />
+      <button>OK!</button>
+    </form>
+  </body>
+</html>
+
+<!-- NOTE: <class> & <id> are used to identify the elements and can be used to every elements.-->
+<!-- NOTE: We use the classes and ids to essentially name elements so that we can then select them in CSS in order to style them.-->
+<!-- NOTE: The difference between classes and ids is id has to be unique but classes can be used again and again, we can only use one id, so we actually almost never used ids to style elements or to select them from JavaScript.-->
