@@ -148,4 +148,89 @@ for (const player of game.scored) {
   scorers[player] ? scorers[player]++ : (scorers[player] = 1);
 }
 console.log(scorers);
+
+// TOPIC: Challenge 3
+
+const gameEvent = new Map([
+  [17, '⚽️ GOAL'],
+  [36, 'Substitution'],
+  [47, '⚽️ GOAL'],
+  [61, 'Substitution'],
+  [64, '🟡 Yellow card'],
+  [69, '🔴 Red card'],
+  [70, 'Substitution'],
+  [72, 'Substitution'],
+  [76, '⚽️ GOAL'],
+  [80, '⚽️ GOAL'],
+  [92, '🟡 Yellow card'],
+]);
+
+// 1.
+// const events = new Set([...gameEvent.values()]);
+// console.log(events);
+
+//  NOTE: Jonas's code:
+const events = [...new Set(gameEvent.values())];
+console.log(events);
+
+// 2.
+gameEvent.delete(64);
+console.log(gameEvent);
+
+// 3.
+// console.log(
+//   `An event happened, on average, every ${90 / gameEvent.size} minutes`
+// );
+
+// NOTE: array.pop() does not only delete the last value from current array, it also return the value.
+
+const time = [...gameEvent.keys()].pop();
+console.log(time);
+
+console.log(
+  `An event happened, on average, every ${time / gameEvent.size} minutes`
+);
+
+// 4.
+// for (const [key, value] of [...gameEvent]) {
+//   console.log(
+//     `${key < 45 ? '[FIRST HALF]' : '[SECOND HALF]'} ${key}: ${value}`
+//   );
+// }
+
+// NOTE: Jonas's code:
+
+for (const [min, event] of gameEvent) {
+  const half = min <= 45 ? 'FIRST' : 'SECOND';
+  console.log(`[${half} HALF] ${min}: ${event}`);
+}
+
+// TOPIC: Challenge 4 (Overall Exercise)
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+document.querySelector('button').addEventListener('click', function () {
+  const text = document.querySelector('textarea').value;
+  const rows = text.split('\n');
+  console.log(rows);
+
+  // for (const x of rows) {
+  //   const [firstWord, secondWord] = x.split('_');
+  //   console.log(
+  //     firstWord.toLowerCase().trim() +
+  //       secondWord[0].toUpperCase() +
+  //       secondWord.slice(1).toLowerCase()
+  //   );
+  // }
+
+  // NOTE: Jonas's code:
+  for (const [i, row] of rows.entries()) {
+    const [first, second] = row.toLowerCase().trim().split('_');
+    const output = `${first}${second.replace(
+      second[0],
+      second[0].toUpperCase()
+    )}`;
+    console.log(`${output.padEnd(20)}${'✅'.repeat(i + 1)}`);
+  }
+});
 */

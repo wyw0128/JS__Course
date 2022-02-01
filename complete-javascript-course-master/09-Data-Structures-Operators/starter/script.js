@@ -1,8 +1,19 @@
 'use strict';
-
+/*
 // Data needed for a later exercise
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+
+const getCode = str => str.slice(0, 3).toUpperCase();
+
+for (const flight of flights.split('+')) {
+  const [type, from, to, time] = flight.split(';');
+  const output = `${type.startsWith('_Delayed') ? '🔴' : ''}${type.replaceAll(
+    '_',
+    ' '
+  )} ${getCode(from)} ${getCode(to)} (${time.replace(':', 'h')})`.padStart(40);
+  console.log(output);
+}
 
 // Data needed for first part of the section
 
@@ -73,7 +84,7 @@ const restaurant = {
     );
   },
 };
-/*
+
 // TOPIC: OPTIONAL CHAINING (?.) (Important)
 
 if (restaurant.openingHours && restaurant.openingHours.mon)
@@ -492,11 +503,12 @@ console.log(entries);
 for (const [key, { open, close }] of entries) {
   console.log(`On ${key} we open at ${open} and close at ${close}`);
 }
-*/
 
 // TOPIC: SETS
 
 // NOTE: Sets are iterables, and it helps to ignores the duplicate values.
+
+// NOTE: Sets are different from arrays, first, because its elements are unique. And second, because the order of elements in the set is irrelevant.
 
 const ordersSet = new Set([
   'Pasta',
@@ -507,3 +519,333 @@ const ordersSet = new Set([
   'Pizza',
 ]);
 console.log(ordersSet);
+
+console.log(new Set('Jonas'));
+
+console.log(ordersSet.size);
+
+console.log(ordersSet.has('Pizza'));
+console.log(ordersSet.has('Bread'));
+ordersSet.add('Garlic Bread');
+ordersSet.add('Garlic Bread');
+ordersSet.delete('Risotto');
+// NOTE: Because in sets there are actually no indexes. And in fact, there is no way of getting values out of a set.
+
+// NOTE: There's no need for getting values out of a set, because if you need it, then you will just use an array.
+
+console.log(ordersSet[0]); // undefined
+// ordersSet.clear();
+console.log(ordersSet);
+
+for (const order of ordersSet) console.log(order);
+
+// Example
+const staff = ['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter'];
+// NOTE: To convert sets into arrays
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique);
+console.log(
+  new Set(['Waiter', 'Chef', 'Waiter', 'Manager', 'Chef', 'Waiter']).size
+);
+console.log(new Set('Daisy Wu').size);
+
+// NOTE: Sets are not intended to replace arrays at all. So whenever you need to store values in order, and that might contain duplicates, always just use arrays. That's also true when you need to really manipulate data, because arrays have access to a lot of great array methods.
+
+// TOPIC: MAPS: FUNDAMENTALS
+
+// NOTE: Maps are iterables, so the for loop is available for them.
+
+// NOTE: A map is a data structure that we can use to map values to keys. So, just like an object, data is stored in key value pairs in maps. Now, the big difference between objects and maps is that in maps, the keys can have any type and this can be huge.
+
+// NOTE: How Maps solve the limitations of Objects in JavaScript: https://javascript.plainenglish.io/how-maps-make-up-for-limitations-of-objects-in-javascript-6c71f6e61af0
+
+const rest = new Map();
+rest.set('name', 'Classico Italino');
+rest.set(1, 'Firenze Italy');
+
+// NOTE: Calling the set method like this does not only update the map that it's called on, but it also returns the map.
+
+console.log(rest.set(2, 'Lisbon Portugal'));
+
+// NOTE: Calling the set method returns the updated map.
+
+rest
+  .set('categories', ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'We are open :)')
+  .set(false, 'We are closed :(');
+
+console.log(rest.get('name'));
+console.log(rest.get('open'));
+console.log(rest.get(true));
+console.log(rest.get('1')); // undefined
+console.log(rest.get(1));
+
+// Example
+
+// NOTE: Don't overuse this kind of pattern.
+
+const time = 24;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+// NOTE: Check if the map has the certain key.
+
+console.log(rest.has('categories'));
+rest.delete(2);
+// rest.clear();
+
+const arr = [1, 2];
+rest.set(arr, 'Test');
+
+rest.set(document.querySelector('h1'), 'heading');
+console.log(rest);
+console.log(rest.size);
+
+// NOTE: This cannot work because the following array is not the same array as the previous declared one.
+
+// NOTE: They are not the same object in the heap. And, the key is exactly the first object in memory,
+
+console.log(rest.get(arr));
+
+// TOPIC: MAPS: ITERATION
+
+// NOTE: Because the set method is a bit cumbersome when there are a lot of values to set.
+
+const question = new Map([
+  ['question', 'What is the best programming language in the world?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  ['correct', 3],
+  [true, 'Correct 🎉'],
+  [false, 'Try again!'],
+]);
+console.log(question);
+
+// NOTE: Convert object to map
+
+console.log(Object.entries(openingHours));
+const hoursMap = new Map(Object.entries(openingHours));
+
+console.log(hoursMap);
+
+// Quiz app
+console.log(question.get('question'));
+for (const [key, value] of question) {
+  if (typeof key === 'number') {
+    console.log(`Answer ${key}: ${value}`);
+  }
+}
+
+// const answer = Number(prompt('Your answer'));
+const answer = 3;
+console.log(answer);
+
+console.log(question.get(answer === question.get('correct')));
+
+// NOTE: Convert map to array
+
+console.log([...question]);
+
+// console.log(question.entries());
+console.log([...question.keys()]);
+console.log([...question.values()]);
+
+// TOPIC: WORKING WITH STRINGS - PART 1
+
+const airline = 'TAP Air Portugal';
+const plane = 'A320';
+
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log('B737'[0]);
+
+console.log(airline.length);
+console.log('B737'.length);
+
+// NOTE: Strings are also have methods, like arrays, for example, for indexOf, we can get the position in which a certain letter is in the string. Strings are also 0 based.
+
+console.log(airline.indexOf('r')); // 6
+console.log(airline.lastIndexOf('r')); // 10
+
+// NOTE: This is case sensitive, if you search portugal, you will get -1, which means does not exist.
+
+console.log(airline.indexOf('Portugal'));
+
+// NOTE: One good use case is to extract part of a string using the slice method and a slice method needs indexes as arguments.
+
+// NOTE: This is only substring, this does not change the underlying string. That's because it's actually impossible to mutate strings. They are primitives.
+
+// NOTE: In JavaScript, the primitive type values are immutable.
+
+console.log(airline.slice(4)); // Air Portugal
+
+// NOTE: It stops extracting before reaching index number seven. The length of the extracted string is always going to be end minus beginning.
+
+console.log(airline.slice(4, 7)); // Air
+
+console.log(airline.slice(0, airline.indexOf(' '))); // TAP
+console.log(airline.slice(airline.lastIndexOf(' ') + 1)); // Portugal
+
+// NOTE: Actually start extracting from the end. Including the first index but excluding the second index.
+
+console.log(airline.slice(-2)); // al
+console.log(airline.slice(1, -1)); // AP Air Portuga
+
+const checkMiddleSeat = function (seat) {
+  //  B and E are middle seats
+  const s = seat.slice(-1);
+  if (s === 'B' || s === 'E') console.log('You got the middle seat 🥵');
+  else console.log('You got lucky 😄');
+};
+
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
+
+// NOTE: Why does string have method? Whenever we call a method on a string, JavaScript will automatically behind the scenes convert that string primitive to a string object with the same content. And then it's on that object where the methods are called. All right and this process is called boxing because it basically takes our string and puts it into a box which is the object.
+
+// NOTE: JavaScript will call this string function whenever we call a method on a string.
+
+console.log(new String('jonas'));
+console.log(typeof new String('jonas')); // object
+
+// NOTE: And then when the operation is done the object is converted back to a regular string primitive. And in fact all string methods return primitives. Even if called on a string object.
+
+console.log(typeof new String('jonas').slice(1)); // string
+
+// TOPIC: WORKING WITH STRINGS - PART 2
+
+console.log(airline.toLowerCase());
+console.log(airline.toUpperCase());
+console.log('jonas'.toUpperCase());
+
+// NOTE: Fix capitalization in name
+const passenger = 'jOnAS'; // Jonas
+
+const correctPassengerName = function (passengerName) {
+  const passengerLower = passengerName.toLowerCase();
+  return passengerLower[0].toUpperCase() + passengerLower.slice(1);
+};
+
+console.log(correctPassengerName(passenger));
+
+// NOTE: Comparing email
+const email = 'hello@jonas.io';
+const loginEmail = '   Hello@Jonas.Io  \n';
+
+// const lowerEmail = loginEmail.toLowerCase();
+// const trimmedEmail = lowerEmail.trim();
+
+// const normalizedEmail = loginEmail.toLowerCase().trim();
+// console.log(normalizedEmail);
+
+// console.log(email === normalizedEmail);
+
+// NOTE: .trim can help remove the spaces and returns.
+const compareEmail = function (email, loginEmail) {
+  const normalizedEmail = loginEmail.toLowerCase().trim();
+  return email === normalizedEmail;
+};
+
+console.log(compareEmail(email, loginEmail));
+
+// NOTE: Replace part of strings
+const priceGB = '288,97$';
+const priceUS = priceGB.replace('$', '@').replace(',', '.');
+console.log(priceUS);
+
+const announcement =
+  'All passengers come to boarding door 23. Boarding door 23!';
+
+// NOTE: Replace and ReplaceAll
+console.log(announcement.replace('door', 'gate')); //All passengers come to boarding gate 23. Boarding door 23!
+console.log(announcement.replaceAll('door', 'gate')); //All passengers come to boarding gate 23. Boarding door 23!
+
+// NOTE: Regular expression to solve that replace can not replace all of the target string.
+console.log(announcement.replaceAll(/door/g, 'gate'));
+
+// NOTE: Booleans
+const plane2 = 'Airbus A320';
+console.log(plane2.includes('A320'));
+console.log(plane2.includes('Boeing'));
+console.log(plane2.startsWith('Airb'));
+
+if (plane2.startsWith('Airbus') && plane2.endsWith('neo')) {
+  console.log('Part of the NEW AIRBUS family.');
+}
+
+// Practice exercise
+
+// NOTE: Normally, when we receive inputs from users, we usually always start by putting everything into lower case.
+
+const checkBaggage = function (items) {
+  const baggage = items.toLowerCase();
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('You are NOT allowed in board');
+  } else {
+    console.log('Welcome aboard');
+  }
+};
+
+checkBaggage('I have a laptop, some food and a pocket Knife');
+checkBaggage('Socks and camera');
+checkBaggage('Got some snacks and a gun for protection');
+
+// TOPIC: WORKING WITH STRINGS - PART 3
+
+// Split and join
+// NOTE: It will split up this string by this plus sign and it will then store the results into elements of a new array.
+
+console.log('a+very+nice+string'.split('+'));
+console.log('Jonas Schmedtman'.split(' '));
+
+const [firstName, lastName] = 'Jonas Schmedtman'.split(' ');
+
+const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName); // Mr. Jonas SCHMEDTMAN
+
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+  const namesUpper = [];
+  for (const n of names) {
+    // namesUpper.push(n[0].toUpperCase() + n.slice(1));
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
+  }
+  console.log(namesUpper.join(' '));
+};
+capitalizeName('jessica ann smith davis');
+capitalizeName('jonas schmedtmann');
+
+// NOTE: Padding strings: padding a string means to add a number of characters to the string until the string has a certain desired length.
+
+// NOTE: The first number of PadStart means the total length of the string, including the target string(message) length, the first number of padEnd is the total length of the string.
+const message = 'Go to gate 23!';
+console.log(message.padStart(20, '+').padEnd(30, '+')); // ++++++Go to gate 23!++++++++++
+console.log('Jonas'.padStart(20, '+').padEnd(30, '+')); // +++++++++++++++Jonas++++++++++
+
+const maskCreditCard = function (number) {
+  // NOTE: when one of the operands of the plus sign is a string it will convert all the operands to a string.
+  const str = number + '';
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCreditCard(43378462837384892));
+console.log(maskCreditCard(3423342));
+console.log(maskCreditCard('23243935893842898892'));
+
+// NOTE: Repeat
+
+const message2 = 'Bad weather... All departures delayed... ';
+console.log(message2.repeat(5));
+
+const planesInLine = function (n) {
+  console.log(`There are ${n} planes in line ${'🛫'.repeat(n)}`);
+};
+planesInLine(5);
+planesInLine(3);
+planesInLine(10);
+*/
